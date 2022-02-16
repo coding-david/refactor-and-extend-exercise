@@ -44,18 +44,39 @@ describe('isValidCarTest ', () => {
     expect(expectedFalse).toBe(false);
   })
 
+  // it('marcel fooo' , () => {
+  //   const { getByText } = render(<App />);
 
-
-  // it('check isValidCar function (mazda year: xxxx max) ', () => {
-  //   const wrapper =  mount(<App />);
-    
-  //   let carValidTest = {make: 'mazda', year:'2006'};
-  //   let carInValidTest = {make: 'mazda', year:'2007'};
-  //   const expectedTrue = wrapper.instance().isValidCar(carValidTest);
-  //   const expectedFalse = wrapper.instance().isValidCar(carInValidTest);
-  //   expect(expectedTrue).toBe(true);
-  //   expect(expectedFalse).toBe(false);
   // })
+
+  it('stateTest ', () => {
+    let carValidTest = {make: 'mazda', year:'1997'};
+    const wrapper = mount(<App />);
+    const instance = wrapper.instance();
+    wrapper.find('input').at(0).text('mazda');
+    // wrapper.getByName('year').value = '1997';
+    expect(instance.state).toStrictEqual({ make: "", year: "", isValid: undefined });
+    instance.setState({...carValidTest, isValid: true});
+    instance.isValidCar(carValidTest);
+    expect(instance.state).toStrictEqual({...carValidTest, isValid: true});
+  });
+
+  it('Button test with stateTest', () => {
+    let carValidTest = {make: 'mazda', year:'1997'};
+    const wrapper = mount(<App />);
+    const instance = wrapper.instance();
+    const event = {target: {value: "mazda"}};
+    wrapper.find('input').at(0).simulate('change', event);
+    const event2 = {target: {value: "1997"}};
+    wrapper.find('input').at(1).simulate('change', event2);
+   
+   let btn =  wrapper.find('button').simulate('click');
+  //  expect(btn.mock.calls.length).toEqual(1);
+
+    expect(instance.state).toStrictEqual({...carValidTest, isValid: true});
+  });
+
+
 
 
 })
