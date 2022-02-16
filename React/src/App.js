@@ -23,8 +23,8 @@ class App extends Component {
     for (let item of ValidCarDataList) {
       if (
         car.make.toLowerCase() === item.make &&
-        (validDate > item.minYearOfConstruction ||
-          validDate < item.maxYearOfConstruction)
+        (validDate >= item.minYearOfConstruction ||
+          validDate <= item.maxYearOfConstruction)
       ) {
         result = true;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import App from './App';
 import Enzyme, { mount } from 'enzyme';
 
@@ -35,13 +35,16 @@ describe('isValidCarTest ', () => {
   it('check isValidCar function (mazda year: xxxx min) ', () => {
     const wrapper =  mount(<App />);
     
-    let carValidTest = {make: 'mazda', year:'97'};
+    let carValidTest = {make: 'mazda', year:'1997'};
     let carInValidTest = {make: 'mazda', year:'1996'};
     const expectedTrue = wrapper.instance().isValidCar(carValidTest);
     const expectedFalse = wrapper.instance().isValidCar(carInValidTest);
+    
     expect(expectedTrue).toBe(true);
     expect(expectedFalse).toBe(false);
   })
+
+
 
   // it('check isValidCar function (mazda year: xxxx max) ', () => {
   //   const wrapper =  mount(<App />);
